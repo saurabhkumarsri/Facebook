@@ -1,0 +1,64 @@
+  <nav>
+    <div class="nav-left">
+      <img src="<%= asset_path('logo.png') %>" class="logo">
+      <ul>
+        <li><img src="<%= asset_path('notification.png') %>"></li>
+        <li><img src="<%= asset_path('inbox.png') %>"></li>
+        <li><img src="<%= asset_path('video.png') %>"></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="search-box">
+        <img src="<%= asset_path('search.png')%>">
+        <input type="text" placeholder="Search">
+      </div>
+      <div class="nav-user-icon" onclick="settingsMenuToggle()">
+        <img src="<%= asset_path('profile-pic.png') %>" class="logo">
+      </div>
+    </div>
+    <!---------------------Setting Menu------------------------>
+
+    <div class="settings-menu">
+      <div id="dark-btn">
+        <span></span>
+        
+      </div>
+      <div class="settings-menu-inner">
+        <div class="user-profile">
+          <img src="<%= asset_path('profile-pic.png')%>">
+          <div>
+            <p>Saurabh Sri</p>
+            <a href="">See your profile</a>
+          </div>
+        </div>
+        <hr>
+        <div class="user-profile">
+          <img src="<%= asset_path('feedback.png')%>">
+          <div>
+            <p>Give Feedback</p>
+            <a href="">Help us to Improve ChatBook</a>
+          </div>
+        </div>
+        <hr>
+        <div class="setting-links">
+          <img src="<%= asset_path('setting.png')%>" class="settings-icon">
+          <a href="">Setting & Privacy <img src="<%= asset_path('arrow.png')%>" width="10px"> </a>
+          
+        </div>
+        <div class="setting-links">
+          <img src="<%= asset_path('help.png')%>" class="settings-icon">
+          <a href="">Help & Support <img src="<%= asset_path('arrow.png')%>" width="10px"> </a>
+          
+        </div>
+         <div class="setting-links">
+          <img src="<%= asset_path('display.png')%>" class="settings-icon">
+          <a href="">Display & Accessibility <img src="<%= asset_path('arrow.png')%>" width="10px"> </a>
+          
+        </div>
+                <div class="setting-links">
+          <img src="<%= asset_path('logout.png')%>" class="settings-icon">
+          <a href="<%= user_logout_path :controller => 'user/sessions', :action => 'logout' %>">Logout <img src="<%= asset_path('arrow.png')%>" width="10px"> </a>
+        </div>
+      </div>  
+    </div>
+  </nav>

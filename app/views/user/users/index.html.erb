@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ChatBook</title>
+</head>
+
+
+<style type="text/css">
+ body{
+    background: var(--body-color);
+  }
+  .container{
+  display: flex;
+  justify-content: space-between;
+  padding: 13px;
+  max-width: 1754px;
+}
+</style>
+
+
+<body>
+  <div class="container">
+    <!---------------------Left sidebar------------------------>
+    <div class="left-sidebar">
+      <div class="imp-links">
+        <a href="#"><img src="<%= asset_path('news.png')%>">Latest News</a>
+        <a href="#"><img src="<%= asset_path('friends.png')%>">Friends</a>
+        <a href="#"><img src="<%= asset_path('friends.png')%>">Request</a>
+        <a href="#"><img src="<%= asset_path('group.png')%>">Group</a>
+        <a href="#"><img src="<%= asset_path('marketplace.png')%>">Marketplace</a>
+        <a href="#"><img src="<%= asset_path('watch.png')%>">Watch</a>
+        <a href="#"><b>See More</b></a>
+      </div>
+      <div class="shortcut-links">
+        <p><b>Your Shortcuts</b></p>
+        <a href="#"><img src="<%= asset_path('shortcut-1.png')%>">Web Developers</a>
+        <a href="#"><img src="<%= asset_path('shortcut-2.png')%>">Web Design Course</a>
+        <a href="#"><img src="<%= asset_path('shortcut-3.png')%>">Full Stack Development</a>
+        <a href="#"><img src="<%= asset_path('shortcut-4.png')%>">Web Developers</a>
+      </div>
+    </div>
+    <!---------------------main content------------------------>
+    <div class="main-content">
+      <div class="story-gallery">
+        <div class="story story1" style="background-image: url('<%= asset_path("member-1.png") %>');">
+          <img src="<%= asset_path("upload.png")%>">
+          <p>Post Story</p>
+        </div>
+        <div class="story" style="background-image: url('<%= asset_path("member-2.png") %>');">
+          <img src="<%= asset_path("member-1.png")%>">
+          <p>Ajeet</p>
+        </div>
+        <div class="story" style="background-image: url('<%= asset_path("member-3.png") %>');">
+          <img src="<%= asset_path("member-2.png")%>">
+          <p>Sidharth</p>
+        </div>
+        <div class="story" style="background-image: url('<%= asset_path("member-4.png") %>');">
+          <img src="<%= asset_path("member-3.png")%>">
+          <p>Rahul</p>
+        </div>
+        <div class="story" style="background-image: url('<%= asset_path("member-5.png") %>');">
+          <img src="<%= asset_path("member-4.png")%>">
+          <p>Anand</p>
+        </div>
+      </div>
+
+      <div class="write-post-container">
+        <div class="user-profile">
+          <img src="<%= asset_path('profile-pic.png')%>">
+          <div>
+            <p><%= current_user.fname %>
+              <% if current_user.verified? %>
+              <img src="<%= asset_path('facebook-verified.png') %>" style=" width: 20px; height: 20px;position: relative;">
+            <% else %>
+              <!-- You can add alternative content here if the user is not verified -->
+            <% end %>
+            </p>
+            <small>Public<i class="fas fa-caret-down"></i></small>
+          </div>
+        </div>
+      <%=form_for :user,url:user_post_create_path,:html=>{:id=>"submit_form", :multipart => true} do |f|%>
+        <div class="post-input-container">
+          <textarea name="title" rows="3" placeholder="Whats on your mind?" required></textarea> 
+          <div class="add-post-link">
+            <a href="#"><img src="<%= asset_path('live-video.png')%>">Live Video</a>
+            <div id="file-input-wrapper">
+              <input type="file" id="file-input" accept="image/*" onchange="displayImage(event)">
+              <label for="file-input">
+                <img src="<%= asset_path('photo.png')%>" id="file-image" alt="Photo">
+                <span>Photo/Video</span>
+              </label>
+            </div>   
+        <form id="yourFormId" action="/your-submit-url" method="post" style="display: inline;">
+        <input type="image" src="<%= asset_path('submit.png') %>" alt="Submit" style="cursor: pointer; width: 30px; height: 30px;position: relative; left: 448px; border: none;"  >
+      </form>
+           </div>
+        </div>
+      <% end %>
+        
+      </div>
+
+      <% @posts.each do |d| %>
+      <div class="post-container">
+        <div class="post-row">
+          <div class="user-profile">
+          <img src="<%= asset_path('profile-pic.png')%>">
+          <div>
+          <p>
+            <%= d.user.fname %>
+            <% if d.user.verified? %>
+              <img src="<%= asset_path('facebook-verified.png') %>" style=" width: 20px; height: 20px;position: relative;">
+            <% else %>
+              <!-- You can add alternative content here if the user is not verified -->
+            <% end %>
+          </p>
+
+            <small><%=d.created_at.strftime("%b %d %Y, %H:%M %p")%><i class="fas fa-caret-down"></i></small>
+          </div>
+        </div>
+        <a href="#"><i class="fas fa-ellipsis-v"></i></a>
+          
+        </div>
+        <p class="post-text"><%=d.title %></p>
+        <img src="<%= asset_path('feed-image-1.png')%>" class="post-img">
+        <div class="post-row">
+          <div class="activity-icons">
+              <div><img src="<%= asset_path('like-blue.png')%>">120</div>
+              <div><img src="<%= asset_path('comments.png')%>">43</div>
+              <div><img src="<%= asset_path('share.png')%>">23</div>
+          </div>
+         <div class="post-profile-icons">
+          <img src="<%= asset_path('profile-pic.png')%>">
+          
+        </div>
+          
+        </div>
+      </div>
+      <% end %>
+      
+    </div>
+    <!---------------------right sidebar------------------------>
+    <div class="right-sidebar">
+      
+      <div class="sidebar-title">
+        <h4>Events</h4>
+        <a href="#"><b>See All</b></a>
+      </div>
+      <div class="event">
+        <div class="left-event">
+          <h3>18</h3>
+          <span><b>December</b></span>
+        </div>
+        <div class="right-event">
+          <h5><b>Social Media</b></h5>
+          <p>Noida Sector 62</p>
+          <a href="#"><b>More Info</b></a>
+        </div>        
+      </div>
+      <div class="event">
+        <div class="left-event">
+          <h3>27</h3>
+          <span><b>March</b></span>
+        </div>
+        <div class="right-event">
+          <h5><b>Social Media</b></h5>
+          <p>Delhi</p>
+          <a href="#"><b>More Info</b></a>
+        </div>
+      </div>
+      <hr>
+      <div class="sidebar-title">
+        <h5><b>Advertisement</b></h5>
+        <a href="#"><b>Close</b></a>
+      </div>
+      <img src="<%= asset_path('advertisement.png')%>" class="sidebar-ads" >
+      <hr>
+      <div class="sidebar-title">
+        <h5><b>Conversation</b></h5>
+        <a href="#"><b>Hide Chat</b></a>
+      </div>  
+        
+        <div class="online-list">
+          <div class="online">
+            <img src="<%= asset_path("member-1.png")%>">
+          </div>
+          <p>Alison Mina</p>  
+        </div>
+                <div class="online-list">
+          <div class="online">
+            <img src="<%= asset_path("member-2.png")%>">
+          </div>
+          <p>Aman Raj</p>  
+        </div>
+                <div class="online-list">
+          <div class="online">
+            <img src="<%= asset_path("member-3.png")%>">
+          </div>
+          <p>Siddharth</p>  
+        </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p>Copyright 2023 - ChatBook Easy To Use Social Media.</p>
+    
+  </div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+  var settingsmenu = document.querySelector(".settings-menu");
+  var darkBtn = document.getElementById("dark-btn")
+  function settingsMenuToggle(){
+    settingsmenu.classList.toggle("settings-menu-height");
+  }
+
+  darkBtn.onclick = function(){
+    darkBtn.classList.toggle("dark-btn-on");
+    document.body.classList.toggle("dark-theme");
+    if (localStorage.getItem("theme") == "light"){
+        localStorage.setItem("theme", "dark");
+    }
+    else{
+        localStorage.setItem("theme", "light");
+    }
+  }
+  if (localStorage.getItem("theme") == "light"){
+    darkBtn.classList.remove("dark-btn-on");
+    document.body.classList.remove("dark-theme");
+  }
+  else if (localStorage.getItem("theme") == "dark"){
+    darkBtn.classList.add("dark-btn-on");
+    document.body.classList.add("dark-theme");
+  }
+  else{
+    localStorage.setItem("theme","light");
+  }
+
+
+
+  function displayImage(event) {
+    const input = event.target;
+    const image = document.getElementById('file-image');
+
+    const file = input.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        image.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  
+</script>
